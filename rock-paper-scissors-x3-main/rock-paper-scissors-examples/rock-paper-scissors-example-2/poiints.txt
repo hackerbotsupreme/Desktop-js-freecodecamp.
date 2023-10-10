@@ -1,0 +1,173 @@
+in this variant of rock-paper-scissor game only buttons are displayed and when we click/choose a option the whole thing like computer choice,userchoiceand result shows up.
+
+the folder path is --> 
+    C:\Users\rekha\OneDrive\Desktop\rock-paper-scissors-x3-main\rock-paper-scissors-examples\rock-paper-scissors-example-2\points.txt
+
+'index.html' is like  -->
+  <body>
+    <div id="game"></div>
+    <script src="app.js" charset="utf-8"></script>
+  </body>
+'app.js' is -->
+        const userChoiceDisplay = document.createElement('h1')
+        const computerChoiceDisplay = document.createElement('h1')
+        const resultDisplay = document.createElement('h1')
+
+        const gameGrid = document.getElementById('game')
+        gameGrid.append(userChoiceDisplay, computerChoiceDisplay, resultDisplay)
+
+        let userChoice
+        let computerChoice
+
+        const choices = ['rock', 'paper', 'scissors']
+
+        for (let i = 0; i < choices.length; i++) {
+        const button = document.createElement('button')
+        button.id = choices[i] // you can delete this id you want to use e.target.HTML in the handleClick
+        button.innerHTML = choices[i]
+        button.addEventListener('click', handleClick)
+        gameGrid.appendChild(button)
+        }
+
+        const handleClick = (e) => {
+        userChoice = e.target.id
+        userChoiceDisplay.innerHTML = 'User choice: ' + userChoice
+        generateComputerChoice()
+        getResult()
+        }
+
+        const generateComputerChoice = () => {
+        const randomChoice = choices[Math.floor(Math.random() * choices.length)]
+        computerChoice = randomChoice
+        computerChoiceDisplay.innerHTML = 'Computer choice: ' + computerChoice
+        }
+
+
+        const getResult = () => {
+        switch (userChoice + computerChoice) {
+            case 'scissorspaper':
+            case 'rockscissors':
+            case 'paperrock':
+            resultDisplay.innerHTML = "YOU WIN!"
+            break
+            case 'paperscissors':
+            case 'scissorsrock':
+            case 'rockpaper':
+            resultDisplay.innerHTML = "YOU LOSE!"
+            break
+            case 'paperpaper':
+            case 'scissorsscissors':
+            case 'rockrock':
+            resultDisplay.innerHTML = "ITS A DRAW!"
+            break
+        }
+        }
+
+1.what will be the difference  between  the js file of rock-paper-scissors 1 and 2 ?how will we be doing this ?
+    the structuring  and methods used in 'app.js '.
+    'app.js' is -->
+        1.first let's create the html element's  
+            const userChoiceDisplay = document.createElement('h1')
+            const computerChoiceDisplay = document.createElement('h1')
+            const resultDisplay = document.createElement('h1')
+        2.then we make a reference of the html div by creating an element  and then add the elements we created in it.
+            const gameGrid = document.getElementById('game')
+            gameGrid.append(userChoiceDisplay, computerChoiceDisplay, resultDisplay)
+        3.for the buttons we creates an array with -'rock', 'paper', 'scissors'- and then we are creating buttons of them .
+        
+            const choices = ['rock', 'paper', 'scissors']
+
+            for (let i = 0; i < choices.length; i++) {
+            const button = document.createElement('button')
+            button.id = choices[i] // you can delete this id you want to use e.target.HTML in the handleClick
+            button.innerHTML = choices[i]
+            button.addEventListener('click', handleClick)
+            gameGrid.appendChild(button)
+            }
+        4.as the button is displaying so its time to make functions to add the functionality of what theywill do .
+            -by adding handleClick(user-coice)
+                const handleClick = (e) => {
+                userChoice = e.target.id
+                userChoiceDisplay.innerHTML = 'User choice: ' + userChoice
+                generateComputerChoice()
+                getResult()
+                }
+            -by adding generateComputerChoice(Computer-coice)
+                const generateComputerChoice = () => {
+                const randomChoice = choices[Math.floor(Math.random() * choices.length)]
+                computerChoice = randomChoice
+                computerChoiceDisplay.innerHTML = 'Computer choice: ' + computerChoice
+                }
+            -by adding getResult(result)
+            const getResult = () => {
+            switch (userChoice + computerChoice) {
+                case 'scissorspaper':
+                case 'rockscissors':
+                case 'paperrock':
+                resultDisplay.innerHTML = "YOU WIN!"
+                break
+                case 'paperscissors':
+                case 'scissorsrock':
+                case 'rockpaper':
+                resultDisplay.innerHTML = "YOU LOSE!"
+                break
+                case 'paperpaper':
+                case 'scissorsscissors':
+                case 'rockrock':
+                resultDisplay.innerHTML = "ITS A DRAW!"
+                break
+            }
+            }
+            fuctions(arrow functions).
+
+1.what does createElement returns  ? how does Math.random() works and what is the purpose of it ?give me a short to the point answer in very simple words
+
+        createElement is a method in JavaScript that returns a newly created HTML element. It allows you to dynamically create HTML elements using JavaScript.
+
+        Here's a simplified explanation of how createElement works:
+
+        You call document.createElement('tagName'), providing the desired HTML tag name as the parameter.
+        The method creates a new element with the specified tag name, such as <div>, <p>, or <span>.
+        The newly created element is returned as a JavaScript object that represents the HTML element.
+        The purpose of createElement is to enable the creation of HTML elements programmatically. It is commonly used when you want to dynamically generate and manipulate elements in the DOM (Document Object Model) using JavaScript. You can set attributes, append child elements, modify the element's content, and perform other operations on the created element before inserting it into the document.
+
+
+C:\Users\rekha\OneDrive\Desktop\rock-paper-scissors-x3-main\rock-paper-scissors-examples\rock-paper-scissors-example-2\poiints.txt
+//lesson 0
+
+// remember here were not invoking(to execute) the function but
+//when we want the same (to invoke to execute ) not referencing , we will use ()
+// so there is two tye of thing one is referncing of a function(where it will be invoked when a certain occurence happens ) and direct invoking ofa function
+// The reason for the difference in syntax between the function declaration inside the addEventListener and when calling the function outside of it is related to how functions are handled in JavaScript.
+// When you provide a function reference as an argument to addEventListener, you are passing the function itself without executing it. The function reference is then stored and can be called later when the corresponding event occurs. In this case, you do not use parentheses () after the function name because you are not invoking the function directly; you are passing a reference to it.
+
+//lesson 1
+// creating buttons using foreach method
+// const choices = ['rock', 'paper', 'scissors'];
+// choices.forEach(choice => {
+// button.innerText = choice;
+// const button = document.createElement('button');
+// document.body.appendChild(button);
+// });
+
+//lesson 2
+// uncaugt reference errors causes error -- Uncaught ReferenceError: Cannot access 'handleClick' before initialization
+// at app.js:15:36-- means if you calls a function before you created it thrn that will give an error .
+// forinstance/example-if you write for loop first and you dont create the handleClick() then it will not work .
+// look at the console.
+
+// lesson 3
+// there's adding
+// there's not only one(document.body.appendChild(button)) element to display the element
+// we can also do this / the same using the .innerHTML .
+
+// lesson 4
+
+// why the switch statement wont work without the break statement ??
+// The function getResults is not working as expected because you are missing the break statements after each case in the switch statement. Without the break statements, the execution falls through to the next case, resulting in unexpected behavior and incorrect display of results.
+// To fix the issue, add break statements at the end of each case block. This will ensure that the execution exits the switch statement after the corresponding case is matched.
+// By adding the break statements, the execution will exit the switch statement after the corresponding case is matched, preventing the fall-through behavior.
+// Please note that the variables computerChoice and userChoice should have valid values before calling the getResults function, as it relies on them to determine the outcome correctly.
+
+
+

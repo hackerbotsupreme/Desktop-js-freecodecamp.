@@ -1,0 +1,117 @@
+1.what does querySelectorAll returns ? how does querySelectorAll works and what is the purpose of it ?
+    nodelist of elements 
+
+    querySelectorAll is a method in JavaScript that allows you to select multiple elements from the HTML document based on a CSS selector. It returns a collection of elements that match the selector.The purpose of querySelectorAll is to provide an easy way to access and manipulate specific elements on a web page using CSS-like selectors. It helps you retrieve a group of elements that share a common attribute, class, or tag name, among other selectors.
+
+2.what does getElementById returns ? how does getElementById works and what is the purpose of it ??
+    <span id="User Choice"></span> --> brings the whole element of that id .
+
+    getElementById is a method in JavaScript that allows you to select a single element from the HTML document based on its unique ID. It returns the element with the specified ID.
+    The purpose of getElementById is to provide a convenient way to access and manipulate a specific element on a web page using its unique identifier. It helps you retrieve a single element that has a unique ID assigned to it.
+
+3.what does forEach returns ? how does forEach works and what is the purpose of it ?
+
+
+    NodeList. 
+
+    The forEach method in JavaScript does not return anything (i.e., it returns undefined). Its purpose is to iterate over elements in an array-like or iterable object and execute a provided callback function for each element.
+
+    The forEach method allows you to perform a specific action or operation on each element of an array. It simplifies the process of looping over array elements and executing code for each item.
+
+    Here's a simple explanation of how forEach works:
+
+    You have an array-like object (such as an array or a NodeList).
+    You call the forEach method on that object and provide a callback function.
+    The callback function is executed for each element in the object, one at a time.
+    The callback function receives the current element as an argument and can perform operations on it.
+    After the callback function has been executed for every element, the forEach method finishes.
+    The purpose of forEach is to provide a convenient and readable way to perform the same action on each element of an array-like object without needing to write explicit loops. It helps with tasks like logging array elements, manipulating them, or performing other operations.
+
+4.what does e.target.id returns  ? how does e.target.id works and what is the purpose of it ?
+
+    e.target.id means event are target je chilo tar id ke niye nao. 
+
+    e.target.id is an expression that returns the ID attribute of the element that triggered an event in JavaScript. It allows you to access the ID of the element that was interacted with.
+
+    When an event occurs on an element (such as a click event), the event object (e in this case) contains information about the event and the element that triggered it. The target property of the event object refers to the element where the event originated.
+
+    Here's a simplified explanation of how e.target.id works:
+
+    An event is triggered on an element, such as a button being clicked.
+    The event object is automatically generated and passed to the event handler function.
+    You can access the ID attribute of the element that triggered the event using e.target.id.
+    The purpose of e.target.id is to provide a way to identify and work with specific elements based on their ID within event handlers. It allows you to differentiate between different elements and perform different actions based on their IDs. For example, you can use it to conditionally execute code or apply specific styles to the element based on its ID.
+
+5.what does Math.random() returns  ? how does Math.random() works and what is the purpose of it ?
+
+
+    generate a number within 0 and 1. could be 0 ,1,0.2,0.5,0.9 etc.
+        Math.random() is a method in JavaScript that returns a random floating-point number between 0 (inclusive) and 1 (exclusive). It generates a pseudo-random number using an algorithm.
+
+    Here's a simplified explanation of how Math.random() works:
+
+    When you call Math.random(), it generates a random number using an algorithm behind the scenes.
+    The generated number is a decimal value between 0 (inclusive) and 1 (exclusive), meaning it can be any number from 0 up to but not including 1.
+    The purpose of Math.random() is to provide a way to generate random numbers in JavaScript. It is commonly used in scenarios where randomness is required, such as generating random values, creating random patterns, or selecting random elements from an array. By utilizing Math.random(), you can introduce variability and unpredictability into your code.
+
+unique highlights-->
+    just observe/look at the flow of this(foreach+addeventlistener+innerHTML)
+        choices.forEach(choice=>choice.addEventListener("click", (e)=> {
+            YourChoice.innerHTML =e.target.id
+        }))
+
+    crits(know use of each/do each one by myself )-->
+    list of fuctions  that we can use to register click   in js and give me list
+      Here is a list of some commonly used functions in JavaScript to register click events:
+        addEventListener
+        onclick
+        onmousedown
+        onmouseup
+        ondblclick
+        oncontextmenu
+        onmouseover
+        onmouseout
+        onmousemove
+        ontouchstart
+        ontouchend
+        ontouchmove
+    my mistakes when writing  js
+      corrcet   incorrect 
+      One line up or down or one charecter here and there can create an error like
+      computer choice produces a number  where i was giving '1','2','3' -- that's the reason of giving undefined 
+      what is the differenec between  =,==,=== in js ?
+    my try
+    &
+    // flow:(in the app.js)-->
+
+
+
+
+    just observe/look at the flow of this(foreach+addeventlistener+innerHTML)
+        choices.forEach(choice=>choice.addEventListener("click", (e)=> {
+            YourChoice.innerHTML =e.target.id
+        }))
+
+    crits(know use of each/do each one by myself )-->
+    list of fuctions  that we can use to register click   in js and give me list
+      Here is a list of some commonly used functions in JavaScript to register click events:
+        addEventListener
+        onclick
+        onmousedown
+        onmouseup
+        ondblclick
+        oncontextmenu
+        onmouseover
+        onmouseout
+        onmousemove
+        ontouchstart
+        ontouchend
+        ontouchmove
+    my mistakes when writing  js
+      corrcet   incorrect 
+      One line up or down or one charecter here and there can create an error like
+      computer choice produces a number  where i was giving '1','2','3' -- that's the reason of giving undefined 
+      what is the differenec between  =,==,=== in js ?
+    my try
+    &
+    // flow:(in the app.js)-->

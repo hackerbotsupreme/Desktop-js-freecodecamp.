@@ -1,0 +1,334 @@
+first thing to remember and consider is 
+to there is only a div in html.
+what we want to do is make div and divisions of certain sized inside the div then make an array from that to creare reference from it and then mark the shooter and elements wwith different colours then make a fuction for certain keys then make a removal system to when the beam collides with the alien the alien vanishes . 
+
+what does the 'flex-wrap: wrap;' do?
+  The CSS property flex-wrap: wrap; tells flex items to wrap onto multiple lines if they cannot all fit in a single line. In simple terms, it allows flex items to move to the next line when there's not enough space horizontally.
+
+does const,let,var have global scope 
+  var have function scope, meaning they are accessible within the function they are defined in,
+  On the other hand, const and let have block scope, which means they are only accessible within the block they are defined in (i.e., within curly braces {})
+  If const, let, or var variables are declared outside of any function or block, they have global scope and can be accessed from anywhere within the JavaScript file or module.
+
+
+
+const grid = document.querySelector('.grid')
+for (let i = 0; i < 225; i++) {
+const square = document.createElement('div')
+grid.appendChild(square)
+}
+
+    step1: creating div inside the grid.
+
+const squares = Array.from(document.querySelectorAll('.grid div'))
+
+    step 2:then create a array from the div.
+
+
+
+    const alienInvaders = [
+    0,1,2,3,4,5,6,7,8,9,
+    15,16,17,18,19,20,21,22,23,24,
+    30,31,32,33,34,35,36,37,38,39
+    ]
+    then we will make an empty array.
+let aliensRemoved = []
+    
+    
+function draw() {
+for (let i = 0; i < alienInvaders.length; i++) {
+    if(!aliensRemoved.includes(i)) {
+    squares[alienInvaders[i]].classList.add('invader')
+    }
+}
+}
+draw()
+    step 3:then we will draw the aliens to draw them.
+    first we make the array which we will iterate to 
+    In the provided code, the draw() function is responsible for displaying the alien invaders on the game grid. It iterates over the alienInvaders array, which contains the indexes representing the positions of the alien invaders on the grid.
+
+    For each index in the alienInvaders array, the draw() function checks if that particular alien invader has been removed or eliminated. If it has not been removed (i.e., its index is not present in the aliensRemoved array), the corresponding square on the grid (as indicated by the index) is given the CSS class invader.
+
+    By adding the invader class to the square element using classList.add('invader'), the visual representation of an alien invader is displayed on the game grid at that specific position.
+
+    The draw() function is called initially to display the alien invaders at their starting positions, and it is also used later on when updating the positions of the alien invaders during the game.
+    now we will make the function to actually remoce the invaders ,In the provided code, the remove() function is responsible for removing the visual representation of the alien invaders from the game grid. It iterates over the alienInvaders array, which contains the indexes representing the positions of the alien invaders on the grid.
+
+    For each index in the alienInvaders array, the remove() function removes the CSS class invader from the corresponding square on the grid (as indicated by the index) using classList.remove('invader'). This effectively removes the visual indication of the alien invader from that particular square on the game grid.
+
+    The purpose of the remove() function is to clear the previous positions of the alien invaders before updating their positions in the moveInvaders() function. By removing the invader class from the squares, the game grid is cleared of the previous positions, allowing the updated positions to be correctly displayed when the draw() function is called subsequently.
+
+    The remove() function is called within the moveInvaders() function to clear the previous positions of the alien invaders before updating their positions and redrawing them on the game grid.
+
+function remove() {
+  for (let i = 0; i < alienInvaders.length; i++) {
+    squares[alienInvaders[i]].classList.remove('invader')
+  }
+}
+    In the provided code, the remove() function is responsible for removing the visual representation of the alien invaders from the game grid. It iterates over the alienInvaders array, which contains the indexes representing the positions of the alien invaders on the grid.
+
+    For each index in the alienInvaders array, the remove() function removes the CSS class invader from the corresponding square on the grid (as indicated by the index) using classList.remove('invader'). This effectively removes the visual indication of the alien invader from that particular square on the game grid.
+
+    The purpose of the remove() function is to clear the previous positions of the alien invaders before updating their positions in the moveInvaders() function. By removing the invader class from the squares, the game grid is cleared of the previous positions, allowing the updated positions to be correctly displayed when the draw() function is called subsequently.
+
+    The remove() function is called within the moveInvaders() function to clear the previous positions of the alien invaders before updating their positions and redrawing them on the game grid.
+
+now we gonna move the invaders(its the most tricky part) ,
+function moveInvaders() {
+  const leftEdge = alienInvaders[0] % width === 0
+  const rightEdge = alienInvaders[alienInvaders.length - 1] % width === width -1
+  remove()
+
+  if (rightEdge && goingRight) {
+    for (let i = 0; i < alienInvaders.length; i++) {
+      alienInvaders[i] += width +1
+      direction = -1
+      goingRight = false
+    }
+  }
+
+  if(leftEdge && !goingRight) {
+    for (let i = 0; i < alienInvaders.length; i++) {
+      alienInvaders[i] += width -1
+      direction = 1
+      goingRight = true
+    }
+  }
+
+  for (let i = 0; i < alienInvaders.length; i++) {
+    alienInvaders[i] += direction
+  }
+
+  draw()
+
+  if (squares[currentShooterIndex].classList.contains('invader', 'shooter')) {
+    resultsDisplay.innerHTML = 'GAME OVER'
+    clearInterval(invadersId)
+  }
+
+  for (let i = 0; i < alienInvaders.length; i++) {
+    if(alienInvaders[i] > (squares.length)) {
+      resultsDisplay.innerHTML = 'GAME OVER'
+      clearInterval(invadersId)
+    }
+  }
+  if (aliensRemoved.length === alienInvaders.length) {
+    resultsDisplay.innerHTML = 'YOU WIN'
+    clearInterval(invadersId)
+  }
+}
+    The moveInvaders() function is responsible for updating the positions of the alien invaders on the game grid and performing related game logic.
+
+    Here's a breakdown of what the code is doing:
+
+    leftEdge and rightEdge variables determine whether the alien invaders have reached the left or right edge of the game grid based on their current positions.
+
+    The remove() function is called to clear the previous positions of the alien invaders from the game grid.
+
+    If the alien invaders have reached the right edge (rightEdge) and are currently moving right (goingRight is true), the following actions occur:
+
+    Each alien invader's index is increased by width + 1, moving them down one row and changing their direction.
+    The direction variable is set to -1 to change the direction of movement to the left.
+    The goingRight variable is set to false to indicate that the invaders are now moving left.
+    If the alien invaders have reached the left edge (leftEdge) and are currently moving left (goingRight is false), the following actions occur:
+
+    Each alien invader's index is increased by width - 1, moving them down one row and changing their direction.
+    The direction variable is set to 1 to change the direction of movement to the right.
+    The goingRight variable is set to true to indicate that the invaders are now moving right again.
+    The positions of the alien invaders are updated by adding the direction value to each invader's index.
+
+    The draw() function is called to display the updated positions of the alien invaders on the game grid.
+
+    The function checks if the shooter (controlled by the player) has collided with an alien invader. If so, it means the game is over, and appropriate actions are taken:
+
+    The resultsDisplay element's content is set to 'GAME OVER'.
+    The invadersId interval is cleared to stop the movement of the invaders.
+    The function checks if any alien invader has moved beyond the bottom edge of the game grid. If so, it means the game is over, and appropriate actions are taken:
+
+    The resultsDisplay element's content is set to 'GAME OVER'.
+    The invadersId interval is cleared to stop the movement of the invaders.
+    Finally, the function checks if all the alien invaders have been removed (eliminated) from the game grid. If so, it means the player has won the game, and appropriate actions are taken:
+
+    The resultsDisplay element's content is set to 'YOU WIN'.
+    The invadersId interval is cleared to stop the movement of the invaders.
+    In summary, the moveInvaders() function handles the movement, collision detection, and game-over/win conditions for the alien invaders in the game.
+    
+
+function shoot(e) {
+  let laserId
+  let currentLaserIndex = currentShooterIndex
+  function moveLaser() {
+    squares[currentLaserIndex].classList.remove('laser')
+    currentLaserIndex -= width
+    squares[currentLaserIndex].classList.add('laser')
+
+    if (squares[currentLaserIndex].classList.contains('invader')) {
+      squares[currentLaserIndex].classList.remove('laser')
+      squares[currentLaserIndex].classList.remove('invader')
+      squares[currentLaserIndex].classList.add('boom')
+
+      setTimeout(()=> squares[currentLaserIndex].classList.remove('boom'), 300)
+      clearInterval(laserId)
+
+      const alienRemoved = alienInvaders.indexOf(currentLaserIndex)
+      aliensRemoved.push(alienRemoved)
+      results++
+      resultsDisplay.innerHTML = results
+      console.log(aliensRemoved)
+
+    }
+
+  }
+  switch(e.key) {
+    case 'ArrowUp':
+      laserId = setInterval(moveLaser, 100)
+  }
+}
+    The shoot(e) function is responsible for handling the shooting action performed by the player in the game. It is triggered when the player presses the "ArrowUp" key.
+
+    Here's a breakdown of what the code is doing:
+
+    The shoot(e) function is called when the "ArrowUp" key is pressed.
+
+    Two variables, laserId and currentLaserIndex, are declared to keep track of the laser's movement and position.
+
+    The moveLaser() function is defined within the shoot(e) function. It is responsible for moving the laser upwards on the game grid.
+
+    Inside the moveLaser() function:
+
+    The CSS class laser is removed from the current laser position using classList.remove('laser').
+    The currentLaserIndex is decremented by width to move the laser up one row on the game grid.
+    The CSS class laser is added to the new currentLaserIndex position using classList.add('laser').
+    If the new position of the laser (currentLaserIndex) contains an alien invader, the following actions occur:
+
+    The CSS classes laser and invader are removed from the current laser position using classList.remove('laser') and classList.remove('invader').
+    The CSS class boom is added to the current laser position using classList.add('boom') to indicate a hit effect.
+    After a short delay (300 milliseconds), the CSS class boom is removed from the current laser position using classList.remove('boom').
+    The laserId interval is cleared to stop the laser movement.
+    The index of the alien invader hit by the laser (currentLaserIndex) is found using alienInvaders.indexOf(currentLaserIndex).
+    The index of the hit alien invader is added to the aliensRemoved array to track eliminated invaders.
+    The results variable is incremented to keep track of the player's score.
+    The resultsDisplay element's content is updated with the new score using resultsDisplay.innerHTML = results.
+    The switch statement inside the shoot(e) function checks if the "ArrowUp" key was pressed. If so, it sets an interval (laserId) to repeatedly call the moveLaser() function every 100 milliseconds.
+
+    The shoot(e) function enables the player to shoot a laser upwards from the shooter's position. When the laser hits an alien invader, the invader is eliminated, the player's score is updated, and appropriate visual effects are applied.
+
+
+what's interesting in this-->
+
+there is only a result and a div/
+container in the index.html 
+    <h1 class="results">0</h1>
+    <div class="grid"></div>
+    <script src="index.js"></script>
+
+the main gem is in the index.js-->
+1.
+first we will see is  the 'queryselector' have used instead of 
+getelementbyclassname so why is that ?
+
+lets look at what they returns and how they works 
+while getElementsByClassName returns a live collection, querySelector only returns the first matched element. If you need to select multiple elements, you can use querySelectorAll, which returns a static NodeList containing all the matched elements.
+
+In summary, getElementsByClassName returns an HTMLCollection, which is an array-like object, and querySelector returns the first matched element as an object of the Element class or null if no match is found.
+
+
+
+2.second its worth noting that 
+does appendchild works on HTMLCollection?
+the answer is no . and that's also why we used 'queryselector' to get an element node so we can apply the 'appendchild' to sucessfully add the elements.
+
+
+3. 
+the third is creating the reference by making an array that we will iterate to colour and draw the elements/squares  . 
+
+const squares = Array.from(document.querySelectorAll(".grid div"));
+// creating reference for the square elements to iterate and draw the invaders .
+const alienInvaders = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 30, 31,
+  32, 33, 34, 35, 36, 37, 38, 39,
+];
+let aliensRemoved = [];
+
+function draw() {
+  for (let i = 0; i < alienInvaders.length; i++) {
+    if (!aliensRemoved.includes(i)) {
+      squares[alienInvaders[i]].classList.add("invader");
+    }
+  }
+}
+// alienInvaders[i] --> this retrives the element from the i index of the 'alieninvaders array' 
+// and
+// squares[alienInvaders[i]] -->indicates accessing an element from the squares array using the value obtained from alienInvaders[i] as the index.
+
+draw();
+
+4.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
